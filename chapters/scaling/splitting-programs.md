@@ -24,7 +24,7 @@ Consider the following application
 
 This is an application that switches between two views: one for a counter with increment and decrement buttons and another view that shows an input text box which reflects the text onto a header below it when you start typing in that text input. Now, before I show you anything from the code, pause for a second and try to figure out the pieces of information that this program has to keep track of and which events are triggered from the user interface.
 
-For the first view showing the counter, the application has to keep track of the count and have the associated "increment" and "decrement" events to change the count. As for the other input text view, the application keeps track of the text from the input and reacts when that text changes. There is also a checkbox that toggles the reflected text into uppercase mode and back. Finally, the application keeps track of information that is *irrelevant* to both the counter and input text: which view is currently shown on screen with the button that toggles the view from the counter to the input text and back.
+For the first view showing the counter, the application has to keep track of the count and have the associated "increment" and "decrement" events to change the count. As for the other input text view, the application keeps track of the text from the input and reacts when that text changes. There is also a checkbox that toggles the reflected text into uppercase mode and back. Finally, the application keeps track of information that is *irrelevant* to both the counter and input text: which view is currently shown on the screen with the button that toggles the view from the counter to the input text and back.
 
 Putting this together, we get the following `State` type that includes all these pieces in one place. You can follow along this section while reading the initial source code of this program from the repository [Zaid-Ajaj/multiple-simple-programs](https://github.com/Zaid-Ajaj/multiple-simple-programs).
 
@@ -118,9 +118,9 @@ let render (state: State) (dispatch: Msg -> unit) =
         Html.h3 (if state.IsUpperCase then state.InputText.ToUpper() else state.InputText)
       ]
 ```
-The highlighted parts shows two buttons that dispatch the `SwitchPage` messages that causes the application to switch from the counter view to the text input and vice-versa.
+The highlighted parts show two buttons that dispatch the `SwitchPage` messages that cause the application to switch from the counter view to the text input and vice-versa.
 
-At this point, you must be thinking: "Zaid, why are we going through this simple stuff, we have seen this before! Just get to the composition techniques already." The thing is, I want to show you that composing larger programs or in this case, splitting a bigger program into smaller ones, naturally arises from *refactoring* the common parts into separate type definitions and separate functions that handle these types. Let us try to refactor the counter view and text input view such that the implementation of either views is entirely separate from one another.
+At this point, you must be thinking: "Zaid, why are we going through this simple stuff, we have seen this before! Just get to the composition techniques already." The thing is, I want to show you that composing larger programs or in this case, splitting a bigger program into smaller ones, naturally arises from *refactoring* the common parts into separate type definitions and separate functions that handle these types. Let us try to refactor the counter view and text input view such that the implementation of either view is entirely separate from one another.
 
 ### Refactoring The State
 
@@ -223,7 +223,7 @@ let renderInputText (state: InputTextState) (dispatch: InputTextMsg -> unit) = (
 
 ### Composing Dispatch Functions
 
-There is a little bit of a problem. Now the smaller render functions no longer can take the `dispatch` function as input coming from the top-level `render`. Instead, the functions `renderCounter` and `renderInputText` take `CounterMsg -> unit` and `InputTextMsg -> unit` as input, respectively.
+There is a little bit of a problem. Now the smaller render functions can no longer take the `dispatch` function as input coming from the top-level `render`. Instead, the functions `renderCounter` and `renderInputText` take `CounterMsg -> unit` and `InputTextMsg -> unit` as input, respectively.
 
 The question is, how do we make such functions when we only have the *original* function of type `Msg -> unit`? The answer is not straightforward at first glance, but it is not complicated or difficult either. It goes as follows: given an already provided dispatch function of type `Msg -> unit`, you can create *derivative* functions from it, one for the `renderCounter` and another for the `renderInputText`:
 ```fsharp {highlight: [3, 4, 6, 7, 18, 29]}
@@ -294,7 +294,7 @@ let render (state: State) (dispatch: Msg -> unit) =
         renderInputText state.InputText (fun inputTextMsg -> dispatch (InputTextMsg inputTextMsg))
       ]
 ```
-These forms can be simplified even further into the format that is most commonly used in Elmish applications that uses the composition operator `>>`
+These forms can be simplified even further into the format that is most commonly used in Elmish applications that use the composition operator `>>`
 ```fsharp {highlight: [11, 22]}
 let render (state: State) (dispatch: Msg -> unit) =
   match state.CurrentPage with
@@ -342,7 +342,7 @@ let init() : State =
 ```
 We split the initialization of the states of the child programs into separate functions. The root `init()` function simply calls these functions to initialize the fields that hold the states of these child programs but it also initializes the data that itself keeps track of, namely the `CurrentPage` field.
 
-When you see such piece of code, you can read it as follows: "The initial state of the parent program is made out of the initial states of the child programs along with the data that is managed by the parent program itself."
+When you see such a piece of code, you can read it as follows: "The initial state of the parent program is made out of the initial states of the child programs along with the data that is managed by the parent program itself."
 
 If you list the types of these initialization functions, you will see something funny:
 ```fsharp
@@ -400,7 +400,7 @@ let update (msg: Msg) (state: State): State =
   | SwitchPage page ->
       { state with CurrentPage = page }
 ```
-And there we have it! Took us a while but we now have an `init` function, an `update` function and a `render` function, all of which are specialized to deal with a part of the application that is entirely separate of other parts. This means, if you were to add or remove a feature from the counter view, the input text view isn't impacted in any way and there is no risk of introducing bugs in one program when we make changes in another, except of course for the parent program that controls the data flow between the views and the switching from one into another.
+And there we have it! It took us a while but we now have an `init` function, an `update` function and a `render` function, all of which are specialized to deal with a part of the application that is entirely separate from other parts. This means that if you were to add or remove a feature from the counter view, the input text view isn't impacted in any way and there is no risk of introducing bugs in one program when we make changes in another, except of course for the parent program that controls the data flow between the views and the switching from one into another.
 
 ### Programs As Modules
 

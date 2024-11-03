@@ -41,7 +41,7 @@ And so on and so forth. Adding more child programs is a matter of adding another
 
 ### Discriminated Union Composition
 
-The most common way to model child programs in web applications is to use a discriminated union to model which child program is currently *active* on screen. Each case of the discriminated union holds the state of a child program. This is a natural way to model web pages because a web application typically is showing a single active page at any given moment. The example we saw in the previous section could have been modelled as a discriminated union type:
+The most common way to model child programs in web applications is to use a discriminated union to model which child program is currently *active* on screen. Each case of the discriminated union holds the state of a child program. This is a natural way to model web pages because a web application typically shows a single active page at any given moment. The example we saw in the previous section could have been modelled as a discriminated union type:
 ```fsharp
 type Page =
     | Counter of Counter.State
@@ -51,9 +51,9 @@ This way, the parent program doesn't need to keep track of a separate field to k
 ```fsharp
 type State = { CurrentPage : Page }
 ```
-The most important distinction when comparing to State-Field composition is that when the `CurrentPage` changes from one child program into another, the state of that child program is *reset*. In State-Field composition, the states of all child programs are maintained at the same time. We saw that in the previous example where the count of the counter view was kept the same as we switched back and forth from one view into another.
+The most important distinction when comparing to State-Field composition is that when the `CurrentPage` changes from one child program into another, the state of that child program is *reset*. In State-Field composition, the states of all child programs are maintained at the same time. We saw that in the previous example where the count of the counter view was kept the same as we switched back and forth from one view to another.
 
-When we say the state of a child program is "reset", it is not entirely accurate. It is better to say that when changing the `CurrentPage` from one child program into another, the state of that child program is *re-initialized*. To elaborate on this concept, consider the `Msg` type that is associated with the `State` type that follows Discriminated Union composition:
+When we say the state of a child program is "reset", it is not entirely accurate. It is better to say that when changing the `CurrentPage` from one child program into another, the state of that child program is *re-initialized*. To elaborate on this concept, consider the `Msg` type that is associated with the `State` type that follows the Discriminated Union composition:
 
 ```fsharp {highlight: [4]}
 type Msg =
@@ -114,7 +114,7 @@ let update (msg: Msg) (state: State) =
         state, Cmd.none
 ```
 
-> In Discriminated Union composition, it is common to match against a tuple of both the current active child program and the incoming message to compute the next state.
+> In Discriminated Union composition, it is common to match against a tuple of both the currently active child program and the incoming message to compute the next state.
 
 You can find the source code of the previous example, implemented using Discriminated Union composition in the repository [Zaid-Ajaj/multiple-programs-du-composition](https://github.com/Zaid-Ajaj/multiple-programs-du-composition)
 
@@ -126,7 +126,7 @@ let init (count: int) =
     let initialState = { Count = count }
     initialState, Cmd.none
 ```
-Then the message `SwitchToCounter` must also have information that correspond to what that `init` function needs:
+Then the message `SwitchToCounter` must also have information that corresponds to what that `init` function needs:
 ```fsharp {highlight: [4, 21, 22]}
 type Msg =
   | CounterMsg of Counter.Msg
@@ -163,9 +163,9 @@ let update (msg: Msg) (state: State) =
     | _, _ ->
         state, Cmd.none
 ```
-You might say: "Well, we didn't add anything really, we just moved the *decision* to initialize the child program data up to the parent program instead of initializing it from the child program itself". In this example, you would be right. However, a lot of the times, the child program cannot choose the initial state without extra information provided by the parent. This is also why Discriminated Union composition is often more suitable in web applications, because unlike State-Field composition, the parent program doesn't need to initialize *all* of the children during the initialization of the state, simply because some child program might require information that is not available at the time of the initialization of the parent program. So the parent program *gathers* enough information for the initialization of another child program before actually initializing it. Think about a user dashboard that loads all kinds of data for a certain user. That would be a page (child program) that requires a *user* as input during initialization. The user information is only available after a user has successfully logged in. This means that we make it impossible to initialize the dashboard unless we have acquired enough information about the user.
+You might say: "Well, we didn't add anything really, we just moved the *decision* to initialize the child program data up to the parent program instead of initializing it from the child program itself". In this example, you would be right. However, a lot of the time, the child program cannot choose the initial state without extra information provided by the parent. This is also why Discriminated Union composition is often more suitable in web applications, because unlike State-Field composition, the parent program doesn't need to initialize *all* of the children during the initialization of the state, simply because some child program might require information that is not available at the time of the initialization of the parent program. So the parent program *gathers* enough information for the initialization of another child program before actually initializing it. Think about a user dashboard that loads all kinds of data for a certain user. That would be a page (child program) that requires a *user* as input during initialization. The user information is only available after a user has successfully logged in. This means that we make it impossible to initialize the dashboard unless we have acquired enough information about the user.
 
-I used the messages `SwitchToCounter` and `SwitchToInputText` to demonstrate the switching between the child programs. In a real web application, we don't need these messages because the switching between the pages happens based on the *current url* of the web page. The application would *listen* for changes in the URL in the address bar and react accordingly. Routing will be discussed in a later chapter. For now, this is the gist of modelling child programs following Discriminated Union composition.
+I used the messages `SwitchToCounter` and `SwitchToInputText` to demonstrate the switching between the child programs. In a real web application, we don't need these messages because the switching between the pages happens based on the *current url* of the web page. The application would *listen* for changes in the URL in the address bar and react accordingly. Routing will be discussed in a later chapter. For now, this is the gist of modelling child programs following the Discriminated Union composition.
 
 ### Keyed-Sequence Composition
 
@@ -209,7 +209,7 @@ let renderCounters counters dispatch =
     ]
   ]
 ```
-This applies not only for Keyed-Sequences with child programs but any sequence of elements that you want to render on screen and have plans of mutating it. For example in a To-Do list application, every time you render a To-Do item, you can use the ID of the item as *key* for the rendered piece of UI.
+This applies not only for Keyed-Sequences with child programs but any sequence of elements that you want to render on the screen and have plans of mutating it. For example in a To-Do list application, every time you render a To-Do item, you can use the ID of the item as *key* for the rendered piece of UI.
 
 ### The Sky Is The Limit
 

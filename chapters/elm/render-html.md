@@ -180,7 +180,7 @@ Html.div [
 
 ### Arbitrary render logic
 
-It is important to understand that although we are just calling these DSL functions such as `Html.div` and `Html.span` to build the HTML, we are still executing F# code. This code can be anything you want to do in a normal function. For example, you can use list comprehensions to build a list of elements that contains powers of 2:
+It is important to understand that although we are just calling these DSL functions such as `Html.div` and `Html.span` to build the HTML, we are still executing F# code. This code can be anything you want to do in a normal function. For example, you can use list comprehensions to build a list of elements that contain powers of 2:
 ```fsharp
 /// Computes x to the power n
 let power x n =
@@ -231,7 +231,7 @@ let render (state: State) (dispatch: Msg -> unit) =
 ```
 The snippet above uses the DSL provided in `Fable.React` library. There are some syntactic differences between the snippets written using Fable.React vs. those written using Feliz. Notice the following about the Fable.React syntax:
  - 1) Requires *two lists* for each element, one for the properties and one for the children.
- - 2) Requires conversion functions to React elements `str` and `ofInt` when you need render primitive values such as `string` and `int`
+ - 2) Requires conversion functions to React elements `str` and `ofInt` when you need to render primitive values such as `string` and `int`
  - 3) Has all these functions for HTML elements and properties *globally* available
  - 4) CSS attributes are not entirely type-safe
 

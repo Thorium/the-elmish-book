@@ -1,6 +1,6 @@
 # To-Do List Application: Part 3
 
-In the section, we will add a feature to our To-Do list application that makes every item in the list editable. It looks as follows:
+In this section, we will add a feature to our To-Do list application that makes every item in the list editable. It looks as follows:
 
 <div style="width:100%">
   <div style="margin: 0 auto; width:65%;">
@@ -99,7 +99,7 @@ Here I have added four new events, three of which will be associated with button
 
 ### Implementing State Updates
 
-The implementation of these event is quite straightforward:
+The implementation of these events is quite straightforward:
 
 ```fsharp
 | StartEditingTodo todoId ->
@@ -246,6 +246,6 @@ let renderTodo (todo: Todo) (dispatch: Msg -> unit) =
   ]
 ```
 
-We have reached the end for this part of our To-Do application. You can check out the [source code here](https://github.com/Zaid-Ajaj/elmish-todo-part3) for reference.
+We have reached the end of this part of our To-Do application. You can check out the [source code here](https://github.com/Zaid-Ajaj/elmish-todo-part3) for reference.
 
 I hope at this point that you have developed an idea of how an Elmish program works, how to think about a requirement in terms of state transitions, and how the application evolves as we add more features to it. In the next section, I want to put what you have learned to the test! Let's jump right in.

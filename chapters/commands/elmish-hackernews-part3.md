@@ -1,6 +1,6 @@
 # Elmish Hackernews: Part 3
 
-Previously on the Elmish Hackernews application we have using the function `loadStoryItems` to retrieve and parse the items from the Hackernews API. However, hypothetical users of the application are complaining: they say that it takes a long time before any useful information is presented on screen. After diagnosing the problem, we figured out that for some story items, the network latency is longer than 10 seconds. Even though other items might have already been loaded, the application is waiting for *all* of the items to be loaded before it can show anything on screen.
+Previously on the Elmish Hackernews application we have using the function `loadStoryItems` to retrieve and parse the items from the Hackernews API. However, hypothetical users of the application are complaining: they say that it takes a long time before any useful information is presented on screen. After diagnosing the problem, we figured out that for some story items, the network latency is longer than 10 seconds. Even though other items might have already been loaded, the application is waiting for *all* of the items to be loaded before it can show anything on the screen.
 
 After a review of the code, we concluded that the root of this "problem" is the `Async.Parallel` function that is combining all of the asynchronous operations to load story items into a single asynchronous operation and awaiting them until every one of them has been loaded before returning the result.
 
@@ -32,7 +32,7 @@ Instead of aggregating the operations using `Async.Parallel` to form a single re
 
 Using this strategy, the user interface will start showing story items as soon as they are loaded on an individual basis without waiting for every story item to load which makes the user interface feel very interactive as more data comes in.
 
-This strategy relies on the fact that you can run multiple commands simultaneously in one go which is exactly what the `Cmd.batch` function provides. It takes a bunch of commands and starts them in parallel but unlike `Async.Parallel`, this function does not wait for the commands to finish nor it aggregates the results. In fact, `Cmd.batch` *cannot* know when the commands have finished running because each command may or may not dispatch a message at any given time. Not to forget that some commands might even dispatch messages indefinitely. This is the signature of the function:
+This strategy relies on the fact that you can run multiple commands simultaneously in one go which is exactly what the `Cmd.batch` function provides. It takes a bunch of commands and starts them in parallel but unlike `Async.Parallel`, this function does not wait for the commands to finish, nor does it aggregate the results. In fact, `Cmd.batch` *cannot* know when the commands have finished running because each command may or may not dispatch a message at any given time. Not to forget that some commands might even dispatch messages indefinitely. This is the signature of the function:
 
 ```fsharp
 Cmd.batch : Cmd<'Msg> list -> Cmd<'Msg>
@@ -50,15 +50,15 @@ Imagine you are building a classic content management system (CMS), a common lan
 
 ### Modelling The State
 
-In parts 1 and 2 we had a single asynchronous operation that loads all the story items in one go. To keep track of the state of that operation we modelled the data using the `Deferred<'t>` type where `'t` was `Result<HackernewsItem list, string>` to account for failure of loading story items in case of HTTP and or JSON errors. In this part however, we are not keeping track of a single operation, but instead of *multiple ongoing* operations at the same time: every story item has an asynchronous state (initial, in progress and resolved).
+In parts 1 and 2 we had a single asynchronous operation that loads all the story items in one go. To keep track of the state of that operation we modelled the data using the `Deferred<'t>` type where `'t` was `Result<HackernewsItem list, string>` to account for the failure of loading story items in case of HTTP and or JSON errors. In this part however, we are not keeping track of a single operation, but instead of *multiple ongoing* operations at the same time: every story item has an asynchronous state (initial, in progress and resolved).
 
-You might be tempted to use `Deferred<Result<HackernewsItem, string>> list` for these operations and that would be a close model but that is not enough (why? think about it before you read on).
+You might be tempted to use `Deferred<Result<HackernewsItem, string>> list` for these operations and that would be a close model but that is not enough. (Why? Think about it before you read on.)
 
 Once these operations start, they are all in the `Deferred.InProgress` state. You basically have a list that looks like this `[ Deferred.InProgress; Deferred.InProgress; Deferred.InProgress; ...]`. Once a story item is loaded with information, you have to update the list but there is no way to *identify* which item was loaded. To identify story items, we need to associate each of the deferred states with an ID of the item being loaded:
 ```fsharp
 (int * Deferred<Result<HackernewsItem, string>>) list
 ```
-Here we are using an integer to identify the asynchronous state of each item. This integer is the `id` field of the story item in subject. Instead of `a' list`, you can also use a `Map` to model the mapping between the story item ID and the associated `Deferred` state of that item. I personally find `Map` nicer in this example even though a list of tuples would work just fine:
+Here we are using an integer to identify the asynchronous state of each item. This integer is the `id` field of the story item in the subject. Instead of `a' list`, you can also use a `Map` to model the mapping between the story item ID and the associated `Deferred` state of that item. I personally find `Map` nicer in this example even though a list of tuples would work just fine:
 ```fsharp
 Map<int, Deferred<Result<HackernewsItem, string>>>
 ```

@@ -4,7 +4,7 @@ What happens within a child program is often of interest for other child program
 
 Since all events of child programs have to go through the parent, the parent program can decide whether to just pass down these events to the child programs for further processing or it can initiate different events in other child programs after initializing them. To better understand what I am talking about, let us go through an example.
 
-Consider the following application that for now only consists of a Login page as you can see below. After logging in, the result of the login attempt is shown below the Login button where it will be a successful attempt when the username and password are both "admin". Using other credentials will fail to login and an error "Username or password is incorrect" is shown on screen.
+Consider the following application that for now only consists of a Login page as you can see below. After logging in, the result of the login attempt is shown below the Login button where it will be a successful attempt when the username and password are both "admin". Using other credentials will fail to login and an error "Username or password is incorrect" is shown on the screen.
 
 <div style="width:100%">
   <div style="margin: 0 auto; width:60%;">
@@ -72,7 +72,7 @@ let login (username: string) (password: string) =
             return UsernameOrPasswordIncorrect
     }
 ```
-This `LoginResult` type can either give you `UsernameOrPasswordIncorrect` if you happen to give it the wrong credentials (anything other than "admin") or it can give you a `LoggedIn of User` where `User` contains information about the user who logged in. Currently, this `User` type has only the username and an *access token*. In real world single page applications, it is common that authenticated users receive an access token after a successful login attempt. Using this token, they can issue subsequent requests to the back-end by which they are identified and authorized. Access tokens usually do not contain sensitive information and often expire after a couple of hours. During a session, a single page application keeps track of the token from the currently logged in user because it needs this token to issue requests and ask for data about that user.
+This `LoginResult` type can either give you `UsernameOrPasswordIncorrect` if you happen to give it the wrong credentials (anything other than "admin") or it can give you a `LoggedIn of User` where `User` contains information about the user who logged in. Currently, this `User` type has only the username and an *access token*. In real-world single page applications, it is common for authenticated users to receive an access token after a successful login attempt. Using this token, they can issue subsequent requests to the back-end by which they are identified and authorized. Access tokens usually do not contain sensitive information and often expire after a couple of hours. During a session, a single page application keeps track of the token from the currently logged in user because it needs this token to issue requests and ask for data about that user.
 
 Enough with the little detour of security management, what we care about now is that after we get a `User` instance from logging in, we can track the currently logged in user and share his or her information across the pages of the application so that these pages can themselves issue requests to the back-end and ask for data.
 
@@ -137,7 +137,7 @@ open Elmish
 
 let init (user: Api.User) : State * Cmd<Msg> = (* . . . *)
 ```
-Unlike the usual type definition of `init` that expects `unit` as input, this definition expects a `User` instance as input: the Home page cannot be initialized unless we provide it a `User` instance to proceed with processing whether it is to load more data in the initial command (using the access token of the user) or in our case just to maintain the information of that user in the state of program:
+Unlike the usual type definition of `init` that expects `unit` as input, this definition expects a `User` instance as input: the Home page cannot be initialized unless we provide it with a `User` instance to proceed with processing whether it is to load more data in the initial command (using the access token of the user) or in our case just to maintain the information of that user in the state of the program:
 ```fsharp
 [<RequireQualifiedAccess>]
 module Home

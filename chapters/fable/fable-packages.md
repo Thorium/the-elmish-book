@@ -14,7 +14,7 @@ From the template we started within the [Hello World](hello-world.md) section, w
   </ItemGroup>
 </Project>
 ```
-Now take a closer look at the highlighted line: a package reference is included that points to `Fable.Browser.Dom`. This package was restored from [nuget](http://www.nuget.org). From .NET's perspective, it is a normal .NET package. But in fact, this is a *Fable-specific* package. It is meant to only be used within Fable projects. Using this package, we were able to open the `Browser.Dom` namespace and gain access to some of the browser's APIs. Specifically, we gained access to the DOM APIs that allow us to reference and manipulate elements on the page. What makes a Fable-specific package different than those meant to be used from .NET?
+Now take a closer look at the highlighted line: a package reference is included that points to `Fable.Browser.Dom`. This package was restored from [nuget](http://www.nuget.org). From .NET's perspective, it is a normal .NET package. But in fact, this is a *Fable-specific* package. It is meant to only be used within Fable projects. Using this package, we were able to open the `Browser.Dom` namespace and gain access to some of the browser's APIs. Specifically, we gained access to the DOM APIs that allow us to reference and manipulate elements on the page. What makes a Fable-specific package different from those meant to be used from .NET?
 
 ### Fable-specific packages
 
@@ -49,7 +49,7 @@ Fable.Library.nupkg
 
 ### Fable compiles source code
 
-The *source files* are included in the NuGet package. This is very important because Fable operates on source code instead of compiled assemblies. This has the consequence that F# packages are not automatically compatible with Fable projects. To make an F# package compilable by Fable, you need to publish a new version of the package with source code included. And that source code must be Fable-compatible: it does not use APIs that Fable cannot recognize as discussed in [.NET Compatibility](compatibility.md).
+The *source files* are included in the NuGet package. This is very important because Fable operates on source code instead of compiled assemblies. This has the consequence that F# packages are not automatically compatible with Fable projects. To make an F# package compilable by Fable, you need to publish a new version of the package with the source code included. And that source code must be Fable-compatible: it does not use APIs that Fable cannot recognize as discussed in [.NET Compatibility](compatibility.md).
 
 You might be wondering, "Well, then why are the compiled assemblies still included in the Fable NuGet package if Fable only requires the source files?" It is not Fable that is using these compiled files, but it is your IDE. Whether you are using Ionide, Visual Studio, or Rider, these IDEs provide their IntelliSense and auto-complete features using the definitions within these compiled `dll` files.
 

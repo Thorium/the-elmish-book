@@ -1,6 +1,6 @@
 # Compatibility with .NET
 
-The base class library or *BCL* for short are those native APIs from .NET that F# can use in normal F# applications. Think the namespaces that start with `System.*`. In the previous counter example, we used `System.Random` to generate random numbers which is a class from the BCL that we were able to use and run in the browser.
+The base class library or *BCL* for short are those native APIs from .NET that F# can use in normal F# applications. Think of the namespaces that start with `System.*`. In the previous counter example, we used `System.Random` to generate random numbers which is a class from the BCL that we were able to use and run in the browser.
 
 Although we were using the `System.Random` class, the actual implementation is not .NET code. Under the hood, Fable translates these APIs to something that already (hopefully) exists in the native JavaScript APIs which is in this specific case the `Math.random()` function.
 

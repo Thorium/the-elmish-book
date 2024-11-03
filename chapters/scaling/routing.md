@@ -76,7 +76,7 @@ The `Feliz.Router` namespace brings into scope these routing helpers:
 
 The first function to use from the `Router` module is `currentUrl()` which parses the URL of the page that the application has landed on into URL segments. The parsed segments will be the initial value for the `CurrentUrl`.
 
-Much more interesting is what is happening in the `render` function. Here we will use the `router` extention method for the `React` class:
+Much more interesting is what is happening in the `render` function. Here we will use the `router` extension method for the `React` class:
 ```fsharp {highlight: ['12-15']}
 open Feliz
 open Feliz.Router
@@ -104,7 +104,7 @@ We end up with the following sample application, see source code in [Zaid-Ajaj/e
   </div>
 </div>
 
-When I am changing the URL in the address bar by hand, I am using the hash sign (`#`) in front of the path. This sign instructs the browser to only *replace* the URL without fully reloading the entire page while still being compatible with the history mechanism of the browser: the back button still works as expected from the user's point of view without having to reload the entire application.
+When I change the URL in the address bar by hand, I use the hash sign (`#`) in front of the path. This sign instructs the browser to only *replace* the URL without fully reloading the entire page while still being compatible with the history mechanism of the browser: the back button still works as expected from the user's point of view without having to reload the entire application.
 
 ### Navigation Using Links
 

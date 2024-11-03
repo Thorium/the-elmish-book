@@ -4,7 +4,7 @@ In section [Splitting Programs](splitting-programs), we learnt how to model nest
 
 It is a common trap to try to define the `Url` type from the parent model *before* the child program to work against the "limitations" of type inference and make the types available to both the parent program as well as the child program. This is sub-optimal because now the child programs suddenly know about the URLs of their parent program and probably URLs of their sibling programs. There is a better way to do it and it actually looks a lot like the state composition from child to parent.
 
-Since we have two child programs `Users` and `User`, we want to map the URL of the application to one these programs. The `User` program however, is itself a parent program of the child programs `ShowUser`, `EditUser` and `AddUser`. The URL mapping of these programs goes as follows:
+Since we have two child programs `Users` and `User`, we want to map the URL of the application to one of these programs. The `User` program however, is itself a parent program of the child programs `ShowUser`, `EditUser` and `AddUser`. The URL mapping of these programs goes as follows:
 ```bash
 Url "/users" => Program(Users)
 Url "/user/42" => Program(User => Program(ShowUser(42)))
@@ -21,7 +21,7 @@ type Url =
   | AddUser
   | NotFound
 ```
-Each of which, initialize the child program `ShowUser`, `EditUser` and `AddUser` respectively. However, from the parent point of view, it shouldn't know about which parts of the URL are of interest to the user. Instead it can define a composite `Url` definition:
+Each of which, initialize the child program `ShowUser`, `EditUser` and `AddUser` respectively. However, from the parent's point of view, it shouldn't know about which parts of the URL are of interest to the user. Instead it can define a composite `Url` definition:
 
 ```fsharp
 // App.fs
@@ -59,7 +59,7 @@ let parseUrl = function
   // matches anything else
   | _ -> Url.NotFound
 ```
-Again, because how awesome pattern matching is, we read the first segment of the URL which is the "user", then take the *rest* of the segments and give them as input for the `parseUrl` function of the child program. This way the parent program can construct the child URL using the implementation defined by that program itself.
+Again, because of how awesome pattern matching is, we read the first segment of the URL which is the "user", then take the *rest* of the segments and give them as input for the `parseUrl` function of the child program. This way the parent program can construct the child URL using the implementation defined by that program itself.
 
 ### Passing Urls To Child Programs
 

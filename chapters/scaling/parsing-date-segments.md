@@ -1,6 +1,6 @@
 # Parsing Date Segments
 
-A lot of times, the URL may contain a segment that represent a *date*, these dates can be encoded in multiple ways such as:
+A lot of times, the URL may contain a segment that represents a *date*, these dates can be encoded in multiple ways such as:
  - `/visitors/report/{day:int}-{month:int}-{year:int}`
  - `/orders/filter?from={day:int}-{month:int}-{year:int}`
 

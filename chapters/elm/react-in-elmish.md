@@ -8,7 +8,7 @@ Let's start off with the *type signature* of the function:
 ```fsharp
 let render (state: State) (dispatch: Msg -> unit) : ReactElement = (* . . . *)
 ```
-Notice here the output type of the function. It returns a `ReactElement`. This type is very important because it is determined by which *rendering engine* we chose to use in our Elmish applications. In our case, the rendering engine is [React.js](https://reactjs.org/).
+Notice here the output type of the function. It returns a `ReactElement`. This type is very important because it is determined by which *rendering engine* we choose to use in our Elmish applications. In our case, the rendering engine is [React.js](https://reactjs.org/).
 
 In the previous examples we opened the namespace
 ```fsharp
@@ -78,7 +78,7 @@ Think about reconciliation as if it had the type:
 ```fsharp
 let reconcile (prev: ReactElement) (next: ReactElement) : Modification list = (*...*)
 ```
-Here, a `Modification` is an instruction for React to apply on the *real* elements on screen.
+Here, a `Modification` is an instruction for React to apply on the *real* elements on the screen.
 
 > Of course, this is pseudo-code, using types just makes it easier to think about the concept.
 

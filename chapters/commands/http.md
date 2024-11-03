@@ -129,7 +129,7 @@ Now if you compile your project and run the `index.html` page directly in your f
   </div>
 </div>
 
-The summary of the error is: "Access to XMLHttpRequest at [...] from origin 'null' has been blocked by CORS policy". I know many of these errors look cryptic but it is basically saying that we are trying to make HTTP requests from a web page without that web page being served from an "origin" or a domain (i.e. the `origin 'null'` part of the message). This means that in order to being able to send HTTP requests, the page that is initiating these requests **has** to be served from some server, at the very minimum, using a static file server.
+The summary of the error is: "Access to XMLHttpRequest at [...] from origin 'null' has been blocked by CORS policy". I know many of these errors look cryptic but it is basically saying that we are trying to make HTTP requests from a web page without that web page being served from an "origin" or a domain (i.e. the `origin 'null'` part of the message). This means that in order to be able to send HTTP requests, the page that is initiating these requests **has** to be served from some server, at the very minimum, using a static file server.
 
 Let's see how our application behaves after a full build with `npm run build` while being served from a *different* static file server instead of webpack. For that, we can install a development dependency called `http-server` from npm:
 ```

@@ -1,6 +1,6 @@
 # Counter with Elmish
 
-In the previous chapter of Getting Started with Fable, we built a small [counter application](/chapters/fable/counter).  Today, we will build the same application but instead following The Elm Architecture using the Elmish library. The approach to building this small app and other similar apps will be fundamentally different as we will see in a moment. Despite the triviality of the application, it will be sufficient to demonstrate the basic concepts of Elmish and get us up and running. I have set up a small template with everything ready to go. Start by cloning the following repository:
+In the previous chapter of Getting Started with Fable, we built a small [counter application](/chapters/fable/counter).  Today, we will build the same application but instead of following The Elm Architecture, we are using the Elmish library. The approach to building this small app and other similar apps will be fundamentally different as we will see in a moment. Despite the triviality of the application, it will be sufficient to demonstrate the basic concepts of Elmish and get us up and running. I have set up a small template with everything ready to go. Start by cloning the following repository:
 ```bash
 git clone https://github.com/Zaid-Ajaj/elmish-getting-started.git
 cd elmish-getting-started
@@ -41,7 +41,7 @@ type Msg =
     | Increment
     | Decrement
 ```
-The events within the `Msg` type can be triggered while the application is running. In the case of the counter app, they are triggered through user interactions: clicking different buttons cause event triggers.
+The events within the `Msg` type can be triggered while the application is running. In the case of the counter app, they are triggered through user interactions: clicking different buttons causes event triggers.
 
 Next up is the `init` function that returns the initial state of the application when it starts up. In our case the initial state is when the count is 0.
 ```fsharp
@@ -137,7 +137,7 @@ For part (1), let's examine `dist/index.html`. We will see the placeholder eleme
 ```
 As for part (2), it is a bit more complicated. As we have discussed before, Elmish as an implementation of The Elm Architecture addresses two main concerns (1) managing and keeping track of data (= state) and (2) rendering user interfaces based on that state  (*re-rendering* the user interface whenever the state changes).
 
-The second concern (rendering user interfaces) is commonly referred to as the "view part" of The Elm Architecture. Elmish delegates this concern to a third-party library that knows how to work with user interfaces really well, in this case it is the [React.js](https://reactjs.org/) library, one of the three most popular libraries in the JavaScript ecosystem to build web applications. Section [React in Elmish](react-in-elmish) goes into greater details of this subject matter.
+The second concern (rendering user interfaces) is commonly referred to as the "view part" of The Elm Architecture. Elmish delegates this concern to a third-party library that knows how to work with user interfaces really well, in this case it is the [React.js](https://reactjs.org/) library, one of the three most popular libraries in the JavaScript ecosystem to build web applications. Section [React in Elmish](react-in-elmish) goes into greater detail about this subject matter.
 
 Although React is only one type of these rendering engines, it is the most popular in the Fable community because it fits really well with the functional approach and because we can use a plethora of pre-existing React components in our Elmish applications without re-implementing them ourselves from scratch.
 

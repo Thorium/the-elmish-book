@@ -4,7 +4,7 @@ The compiler operates on F# source code directly, using the [F# Compiler Service
 
 The `Fable -> Babel` transformation is implemented as a set of what is called *replacements*. Parts of the F# code are replaced with parts of JavaScript code. These parts could be different kinds of declarations, function calls, loop constructs etc. These are translated to their counterpart in JavaScript. The resulting Babel AST is then handed off to the Babel compiler that will actually generate the final output.
 
-This diagram below shows an overview of the process.
+The diagram below shows an overview of the process.
 
 <resolved-image source="/images/fable/fable.png" />
 

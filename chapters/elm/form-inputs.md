@@ -1,6 +1,6 @@
 # Collecting User Input
 
-Clicking a button is one way for users to interact with your application. Another way of interaction is writing inside input boxes. Often the user must fill in information in a form, such as the username and password in a login page.
+Clicking a button is one way for users to interact with your application. Another way of interaction is writing inside input boxes. Often the user must fill in the information in a form, such as the username and password on a login page.
 
 ### Textual Inputs
 
@@ -67,7 +67,7 @@ Now if we had the initial state set to `{ TextInput = "Some initial text" }` the
 
 ### Numeric Inputs: Validation and Transformation
 
-At a first glance, handling numeric inputs isn't that much different than handling the textual input except for the fact that we keep track of a number (float or integer) instead of a string. But it likely does add an extra step to the problem: handling validation and transforming values.
+At first glance, handling numeric inputs isn't that much different than handling textual input except for the fact that we keep track of a number (float or integer) instead of a string. But it likely does add an extra step to the problem: handling validation and transforming values.
 
 Let's start with `State` and `Msg`:
 ```fsharp
@@ -107,7 +107,7 @@ The specified event handler above will try to parse *every* input into an intege
 
 <resolved-image source="/images/elm/int-exn.gif" />
 
-Oh my, an exception in an Elmish application?! This is definitely a worst-case scenario because it broke a bunch of stuff. The event handler errored which means the `update` function isn't called. That caused the UI to go out-of-sync with the data. And all of this because we tried to parse the input as an `int` in an unsafe manner without checking whether the parsing was actually successful or not.
+Oh my, an exception in an Elmish application?! This is definitely a worst-case scenario because it broke a bunch of stuff. The event handler errored which means the `update` function isn't called. That caused the UI to go out-of-sync with the data. And all of this is because we tried to parse the input as an `int` in an unsafe manner without checking whether the parsing was actually successful or not.
 
 In functional programming, the `int` function that parses the input is called a "partial" function. `int` is a partial function because it can only successfully evalute a subset of all possible inputs. That is to say, there are only some strings that the `int` function can successfully convert to the output type (an integer). For some input strings (the ones that are not properly formatted as integers) the function will throw. Partial functions are considered unsafe exactly because they throw and cause unexpected behaviour in the application.
 
@@ -145,7 +145,7 @@ Nice! No exceptions occur when the input is not a proper integer.
 
 ### Raw and Parsed: Extending The State
 
-We were able to retrieve numeric input from the text box. But still the program feels a bit weird because when the input is invalid, the reflected text in the `span` element is not changed. Let's make it a bit nicer by showing the parsed number in a green color if the input is actually an integer. Let's show an error message in a red color if we were unable to parse the text.
+We were able to retrieve numeric input from the text box. But still the program feels a bit weird because when the input is invalid, the reflected text in the `span` element is not changed. Let's make it a bit nicer by showing the parsed number in green color if the input is actually an integer. Let's show an error message in red color if we were unable to parse the text.
 
 <resolved-image source="/images/elm/int-validated.gif" />
 
@@ -214,7 +214,7 @@ However, you might be thinking, "This is cool and all, but isn't it a bit overki
 
 If the goal was just to check whether the text is a valid number and changing the text accordingly, then we wouldn't need to keep track of the parsed value. Instead we could just keep track of the raw value and check whether it is parsable as an integer when rendering. However, this was just for demonstration purposes. In a real-world application, you *will* need the parsed value to use in subsequent events such as sending it to a web service.
 
-Here I wanted to show you how you could make use of the F# type system to correctly model validation and parsing. Even though we were dealing with a simple integer, the ideas are the same when working with different data types and structures.
+Here I wanted to show you how you could make use of the F# type system to model validation and parsing correctly. Even though we were dealing with a simple integer, the ideas are the same when working with different data types and structures.
 
 ### Built-in HTML5 Number Validation
 
@@ -230,7 +230,7 @@ Now the user can't type any non-numeric values into the input field and the brow
 
 ### Check Boxes
 
-Another type of input element is a check box. Check box inputs correspond to boolean fields of the state. Assume we want to extend the example we have to the following sample application that implements a state toggle that will determine whether or not the resulting text from text box is upper case:
+Another type of input element is a check box. Check box inputs correspond to boolean fields of the state. Assume we want to extend the example we have to the following sample application that implements a state toggle that will determine whether or not the resulting text from the text box is upper case:
 
 <resolved-image source="/images/elm/checkbox-input.gif" />
 

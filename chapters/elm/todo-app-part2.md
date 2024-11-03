@@ -155,7 +155,7 @@ Let's go through each event: `DeleteTodo`
 
     { state with TodoList = nextTodoList }
 ```
-Here "deleting" a To-Do item is a matter of creating a *new* list where the To-Do item to be deleted is filtered out. This is common in Elmish: as the state is immutable we create new state rather than mutating the current one.
+Here "deleting" a To-Do item is a matter of creating a *new* list where the To-Do item to be deleted is filtered out. This is common in Elmish: as the state is immutable we create a new state rather than mutating the current one.
 
 As for `ToggleCompleted`:
 ```fsharp
@@ -191,7 +191,7 @@ Event `AddNewTodo` now has a bit more logic to it than from the previous section
         NewTodo = ""
         TodoList = List.append state.TodoList [nextTodo] }
 ```
-First we calculate the identity that our next To-Do item will have. We do so by checking the current list of `Todo`'s. If the list is empty, then use 1 as the identity for the first item. Otherwise we get the To-Do item that has the largest `Id` value using `List.maxBy` and we extract the `Id` from that item. Afterwards we create a new `Todo` using the `Id` we calculated and adding (appending) it to the `TodoList` we already have in the state.
+First we calculate the identity that our next To-Do item will have. We do so by checking the current list of `Todo`'s. If the list is empty, then use 1 as the identity for the first item. Otherwise we get the To-Do item that has the largest `Id` value using `List.maxBy` and we extract the `Id` from that item. Afterwards we create a new `Todo` using the `Id` we calculated and add (appending) it to the `TodoList` we already have in the state.
 
 ### Rendering the User Interface
 
@@ -289,7 +289,7 @@ Html.button [
   ]
 ]
 ```
-Notice the `onClick` event handlers. They trigger events `ToggleCompleted` and `DeleteTodo` providing the events with the `Id` of the To-Do item being rendered. This is important, because this means each button rendered in a To-Do item "knows" which item should be toggled or deleted. Let me try to illustrate this. Suppose you have the list of To-Do items:
+Notice the `onClick` event handlers. They trigger events `ToggleCompleted` and `DeleteTodo` providing the events with the `Id` of the To-Do item being rendered. This is important, because this means each button rendered in a To-Do item "knows" which item should be toggled or deleted. Let me try to illustrate this. Suppose you have a list of To-Do items:
 ```fsharp
 [
   { Id = 1; Description = "Learn F#"; Completed = true }

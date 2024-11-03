@@ -97,7 +97,7 @@ async {
 }
 |> Async.StartImmediate
 ```
-Converting callback-based APIs from JavaScript into F#'s `async` is really powerful and will allow to build abstractions upon existing JavaScript libraries into idiomatic F# API that uses the `async` computation expressions.
+Converting callback-based APIs from JavaScript into F#'s `async` is really powerful and will allow us to build abstractions upon existing JavaScript libraries into idiomatic F# API that uses the `async` computation expressions.
 
 ### Implementing `httpRequest`
 
@@ -142,7 +142,7 @@ let update msg state =
         let nextState = { state with LoremIpsum = Resolved result }
         nextState, Cmd.none
 ```
-There we have it, HTTP requests with Elmish in an idiomatic F# API. By this time, I hope we have gained a better understanding applying HTTP in Elmish applications but more importantly how to work with JavaScript callbacks and turn them into F# `async` expressions.
+There we have it, HTTP requests with Elmish in an idiomatic F# API. By this time, I hope we have gained a better understanding of applying HTTP in Elmish applications but more importantly how to work with JavaScript callbacks and turn them into F# `async` expressions.
 
 Now that we have seen how to implement a simple HTTP request, we are only scratching the surface of the full API provided by `XMLHttpRequest`, you might have the idea of implementing a nice F#/Fable library that covers that API but yours truly has already done it for you, let us take a look at [Fable.SimpleHttp](https://github.com/Zaid-Ajaj/Fable.SimpleHttp) for working with HTTP.
 

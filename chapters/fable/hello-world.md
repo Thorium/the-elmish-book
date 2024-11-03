@@ -1,6 +1,6 @@
 # Hello World
 
-To get started with Fable, it is easier to use a template instead of building your application from scratch, so I have set up a simple hello world fable application in the [fable-getting-started](https://github.com/Zaid-Ajaj/fable-getting-started) repository. Clone it locally on your machine as follows:
+To get started with Fable, it is easier to use a template instead of building your application from scratch, so I have set up a simple hello world Fable application in the [fable-getting-started](https://github.com/Zaid-Ajaj/fable-getting-started) repository. Clone it locally on your machine as follows:
 
 ```bash
 git clone https://github.com/Zaid-Ajaj/fable-getting-started.git

@@ -1,6 +1,6 @@
 # Integrating Commands
 
-In the previous section, we looked at an example for splitting up a program into smaller modular programs and wire them from a parent program. However, we restricted ourselves to only working with *simple* programs: those without commands or side effects in their definition. In this section, we will pick up the example from where it was left off and try to integrate commands in the process of wiring up child programs with their parent ones. I want to add a button to the counter view which dispatches the `Increment` event after a delay of one second.
+In the previous section, we looked at an example of splitting up a program into smaller modular programs and wiring them from a parent program. However, we restricted ourselves to only working with *simple* programs: those without commands or side effects in their definition. In this section, we will pick up the example from where it was left off and try to integrate commands in the process of wiring up child programs with their parent ones. I want to add a button to the counter view which dispatches the `Increment` event after a delay of one second.
 
 <div style="margin-top: 40px; margin-bottom:40px; width:100%">
   <div style="margin: 0 auto; width:100%;">

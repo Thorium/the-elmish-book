@@ -129,7 +129,7 @@ let init() =
     | Url.NotFound ->
         { defaultState with CurrentPage = Page.NotFound }, Cmd.none
 ```
-The highlighted line shows how requirement (6) can be enforced. Once the application starts up, we know for sure that the `User = Anonymous` which means if the application happened to start with an initial URL that is pointing to the Overview page, it will immediately redirect the user to the Login page instead as a result of the `Cmd.navigate("login", HistoryMode.ReplaceState)` command. We use the parameter `HistoryMode.ReplaceState` so that the navigation command doesn't push a "history entry" into the browser page. If that was the case, then a user will be trapped in `/login` as every time the user hits the Back button of the browser, he or she will go back to `/overview` which is a protected page that takes you back again to `/login` and so on and so forth.
+The highlighted line shows how the requirement (6) can be enforced. Once the application starts up, we know for sure that the `User = Anonymous` which means if the application happened to start with an initial URL that is pointing to the Overview page, it will immediately redirect the user to the Login page instead as a result of the `Cmd.navigate("login", HistoryMode.ReplaceState)` command. We use the parameter `HistoryMode.ReplaceState` so that the navigation command doesn't push a "history entry" into the browser page. If that was the case, then a user will be trapped in `/login` as every time the user hits the Back button of the browser, he or she will go back to `/overview` which is a protected page that takes you back again to `/login` and so on and so forth.
 
 
 > There are cases where the user information is loaded from the [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) after a previous login attempt when the application is re-initialized after a full refresh. This way, the user wouldn't be `Anonymous` anymore and you have access to secure pages, such as the overview page in our example.
@@ -140,7 +140,7 @@ The same rules apply when the event `UrlChanged` is triggered. The `update` func
 
 ### Implementing `update`:
 
-Since we are using Discriminated Union Composition, we can start by handling incoming messages from child programs and propagate their results accordingly. However, something interesting is going on when the parent `Home` program inspects the events coming from `Login`; once a user has logged in, `state.User` is updated using the value of that user and the application navigates back to the root using the command `Cmd.navigate("/")`:
+Since we are using the Discriminated Union Composition, we can start by handling incoming messages from child programs and propagate their results accordingly. However, something interesting is going on when the parent `Home` program inspects the events coming from `Login`; once a user has logged in, `state.User` is updated using the value of that user and the application navigates back to the root using the command `Cmd.navigate("/")`:
 ```fsharp {highlight: [5, 6]}
 let update (msg: Msg) (state: State) =
     match msg, state.CurrentPage with

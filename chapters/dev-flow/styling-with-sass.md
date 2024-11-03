@@ -155,7 +155,7 @@ Once that is finished, we will have Bulma installed locally. The thing is, Bulma
 /* main.scss */
 @import "bulma";
 ```
-Now all of Bulma modules are imported into the application. You can cherry pick the modules you want by first including the utilities that other modules require:
+Now all of Bulma modules are imported into the application. You can cherry-pick the modules you want by first including the utilities that other modules require:
 ```css
 /* main.scss */
 @import "bulma/sass/utilities/_all.sass";
@@ -185,4 +185,4 @@ Another language that compiles to CSS is [Less](http://lesscss.org) which is sim
 
 Sass and Less are an entire world of their own. I would recommend you read the official documentation of both [Sass](https://sass-lang.com/documentation) and [Less](http://lesscss.org/features) to learn more about them. Even though if you don't plan on becoming a specialist in either technologies, it would benefit you and your team if you can read the code and be able to do just a tad more than what you would be able to do with CSS.
 
-Last point I want to talk about is the fact that we are compiling the stylesheets into (side-effectful) JavaScript modules which are imported at the entry point of the Fable project. Depending on how big your stylesheets are, the main generated bundle can become bigger than it should be and take longer to download on initial loading of the application. In many cases, we would like to *extract* the used stylesheets into a separate CSS output file. This requires a combination of using the awesome [mini-css-extract](https://github.com/webpack-contrib/mini-css-extract-plugin) plugin which is usually included in most webpack templates that you can come across.
+Last point I want to talk about is the fact that we are compiling the stylesheets into (side-effectful) JavaScript modules which are imported at the entry point of the Fable project. Depending on how big your stylesheets are, the main generated bundle can become bigger than it should be and take longer to download on the initial loading of the application. In many cases, we would like to *extract* the used stylesheets into a separate CSS output file. This requires a combination of using the awesome [mini-css-extract](https://github.com/webpack-contrib/mini-css-extract-plugin) plugin which is usually included in most webpack templates that you can come across.

@@ -24,7 +24,7 @@ decrease.onclick = function (ev) {
 
 countViewer.innerText = `Count is at ${count}`;
 ```
-Crazy, right?! This is almost what we wrote but with F# instead. This goes to say that Fable is not a specific framework to build web apps but rather a compiler that translates your F# code, whatever it does, to JavaScript. It lets your code run in any JavaScript runtime, whether it is the browser, [Node.js](https://nodejs.org/en/), [react-native](http://facebook.github.io/react-native/), [github electron](https://electronjs.org/) or others.
+Crazy, right?! This is almost what we wrote but with F# instead. This goes to say that Fable is not a specific framework for building web apps, but rather a compiler that translates your F# code, whatever it does, to JavaScript. It lets your code run in any JavaScript runtime, whether it is the browser, [Node.js](https://nodejs.org/en/), [react-native](http://facebook.github.io/react-native/), [github electron](https://electronjs.org/) or others.
 
 
 ### Fable uses *bindings* to interact with native JavaScript APIs
@@ -65,7 +65,7 @@ async {
 <code>Async.Sleep</code> with Fable is implemented using <code>setTimeout</code> under the hood, however the implementation is more advanced and provides built-in support for cancellation.
 </div>
 
-The above snippet uses native JavaScript and makes use of Fable's interop capabilities. Don't worry if you do not understand this right away because of the `Emit` attribute or the `jsNative` value; there will be a whole chapter devoted to interoperability from Fable. The take away from this is that it is straightforward and easy to use native functionality when needed.
+The above snippet uses native JavaScript and makes use of Fable's interop capabilities. Don't worry if you do not understand this right away because of the `Emit` attribute or the `jsNative` value; there will be a whole chapter devoted to interoperability from Fable. The takeaway from this is that it is straightforward and easy to use native functionality when needed.
 
 
 ### Unsupported Features

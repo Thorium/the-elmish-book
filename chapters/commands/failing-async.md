@@ -22,9 +22,9 @@ Here `fromAsyncSafe` is very similar to `Cmd.fromAsync` except that it takes ano
 
 Let's implement an example program that has a possibly failing operation. Remember that failure is something we want to account for and react upon when it happens. This means we need to dispatch messages that convey the fact that something failed. These messages typically contain information about failure which is usually an exception but could also be a simple error message of type string.
 
-Here I thought of a simple async operation that generates a random number between 0.0 and 1.0 after a delay, if then number is less than 0.5 then the operation fails and an exception is thrown but otherwise a normal message is dispatched.
+Here I thought of a simple async operation that generates a random number between 0.0 and 1.0 after a delay, if the number is less than 0.5 then the operation fails and an exception is thrown but otherwise a normal message is dispatched.
 
-As always we start with the state and the messages types
+As always we start with the state and the message types
 ```fsharp
 type State = {
     Loading : bool
@@ -77,7 +77,7 @@ let update msg state =
 
 Here, when the message `GenerateRandomNumber` is dispatched, we issue an asynchronous command that generates a random number after a delay of 1 second. if that number is less than 0.5 then an exception is thrown and the operation "fails".
 
-Of course this an artificial failure because *we* are choosing when to throw an exception. In a real-world example, keep exception handling for operations that fail without us having control over their failure.
+Of course this is an artificial failure because *we* are choosing when to throw an exception. In a real-world example, keep exception handling for operations that fail without us having control over their failure.
 
 Lastly we render the `Value` onto the user interface. Green when it is `Ok` of some number and crimson when it is an `Error`. Of course we will have a button to dispatch the `GenerateRandomNumber` event:
 ```fsharp
@@ -118,7 +118,7 @@ The example looks like this:
 
 ### Avoid Throwing Exceptions
 
-We were able to handle an exception that was thrown during the execution of the asynchronous operation and dispatch an event in reaction to it. However, this was an incorrect use of error handling with commands because we are catching an exception that we threw ourselves, just to extract the exception message out of it in the `update` function. If you think about it we are just using exception handling as means to control the flow of the function, jumping into the "failure" state directly. This is of course not what exceptions are for: we handle exceptions to gain control over operations which can throw *unexpectedly*.
+We were able to handle an exception that was thrown during the execution of the asynchronous operation and dispatch an event in reaction to it. However, this was an incorrect use of error handling with commands because we are catching an exception that we threw ourselves, just to extract the exception message out of it in the `update` function. If you think about it we are just using exception handling as a means to control the flow of the function, jumping into the "failure" state directly. This is of course not what exceptions are for: we handle exceptions to gain control over operations which can throw *unexpectedly*.
 
 Let's refactor the program above to eliminate the use of exceptions. First of all, the event that signals the failure should not take an exception anymore as input. Instead, we will use a string that will represent the error message since we eventually want to show a message on screen:
 ```fsharp {highlight: [4]}
@@ -193,7 +193,7 @@ let fromAsync (operation: Async<'msg>) : Cmd<'msg> =
 
     Cmd.ofSub delayedCmd
 ```
-As for `Cmd.fromAsyncSafe` it is OK and does what it should do. However, you might not like the API that there is a "loose" error handler `onError` as a parameter of the function. Another way of modelling the success or failure of the operation is using the `Result` type in F# that can represents the success or failure of the operation:
+As for `Cmd.fromAsyncSafe` it is OK and does what it should do. However, you might not like the API that there is a "loose" error handler `onError` as a parameter of the function. Another way of modelling the success or failure of the operation is using the `Result` type in F# that can represent the success or failure of the operation:
 ```fsharp
 let fromAsyncSafe (operation: Async<'t>) (handler: Result<'t, exn> -> 'msg) : Cmd<'msg> =
     let delayedCmd (dispatch : 'msg -> unit) : unit =
@@ -227,4 +227,4 @@ let randomOp : Async<float> =
 
 let nextCmd = Cmd.fromAsyncSafe randomOp handler
 ```
-Here the async expression `randomOp` is of type `Async<float>` and not `Async<Msg>` it is the job of the `handler` to convert the *result* of that operation (whether succeeding or failing) into a message like it is doing in the above example. This message is eventually dispatched back into the program and be reacted upon.
+Here the async expression `randomOp` is of type `Async<float>` and not `Async<Msg>`. It is the job of the `handler` to convert the *result* of that operation (whether succeeding or failing) into a message like it is doing in the above example. This message is eventually dispatched back into the program and is reacted upon.

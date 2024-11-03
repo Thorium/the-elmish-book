@@ -6,7 +6,7 @@ In the previous chapter, we have seen how to use `XMLHttpRequest` in a non-Elmis
 
 The very first attempt to integrate any callback-based API such as that of `XMLHttpRequest` into an Elmish program is to implement them directly as commands. To turn an HTTP request into a command means that the command will be able to dispatch various messages from events that are triggered from the `XMLHttpRequest`, in particular the `onreadystatechange` event.
 
-As a request is being processed, this event is triggered multiple times notifying the subscribers of the event about the current state of the HTTP request. For the purposes of this section, we will only be interested in the state of the HTTP request when it has been processed (i.e. when ready state is `DONE`) and the response information is available for use. We will not be looking into the intermediate states of an ongoing HTTP request and that is enough to cover 99% of the requirements a web application has when it comes to making HTTP requests.
+As a request is being processed, this event is triggered multiple times notifying the subscribers of the event about the current state of the HTTP request. For the purposes of this section, we will only be interested in the state of the HTTP request when it has been processed (i.e. when the ready state is `DONE`) and the response information is available for use. We will not be looking into the intermediate states of an ongoing HTTP request and that is enough to cover 99% of the requirements a web application has when it comes to making HTTP requests.
 
 I hear you saying: "just get to the code already!?" and we will surely do! For our first attempt, let us model the types of the request and response first:
 ```fsharp
@@ -60,7 +60,7 @@ Let us make a sample application using the command above to make something that 
   </div>
 </div>
 
-As you can see, the application loads, the screen turns into the "loading" state and after a short delay, the famous [lorem ipsum](https://www.lipsum.com/) text is shown on screen.
+As you can see, the application loads, the screen turns into the "loading" state and after a short delay, the famous [lorem ipsum](https://www.lipsum.com/) text is shown on the screen.
 
 We start building the application by adding the lorem ipsum text into a `.txt` file inside the `dist` directory called `lorem-ipsum.txt`:
 ```{highlight: [4]}
@@ -69,7 +69,7 @@ dist
   ├─── fable.ico
   └─── lorem-ipsum.txt
 ```
-We will load the contents of this file when the application starts using HTTP. Like always, we starting building the Elmish application by modelling the state of the application, for that we will use two important types we came up with in the [Modelling Asynchronous State](async-state.md) section:
+We will load the contents of this file when the application starts using HTTP. Like always, we are starting to build the Elmish application by modelling the state of the application, for that we will use two important types we came up with in the [Modelling Asynchronous State](async-state.md) section:
 ```fsharp
 type Deferred<'t> =
   | HasNotStartedYet

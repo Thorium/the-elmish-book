@@ -1,6 +1,6 @@
 # Parsing Url Segments
 
-In the [previous section](routing), we talked about how URL segments represented by a `string list` are the primitive form that make up a URL. We can pattern match against these segments to determine which page will be shown on screen. Luckily for us, pattern matching in F# can be extended and refined to suit the form that we are matching against when the segments aren't represented just as strings but maybe integers or dates. Let us look at a couple of examples:
+In the [previous section](routing), we talked about how URL segments represented by a `string list` are the primitive form that makes up a URL. We can pattern match against these segments to determine which page will be shown on screen. Luckily for us, pattern matching in F# can be extended and refined to suit the form that we are matching against when the segments aren't represented just as strings but maybe integers or dates. Let us look at a couple of examples:
 
 ### Parsing Segments As Numbers
 

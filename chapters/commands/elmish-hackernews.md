@@ -25,11 +25,11 @@ The top stories endpoint returned a JSON array of item identities for 500 items.
   "url" : "http://gource.io"
 }
 ```
-As you can see, we get quite a lot of information for this item such as the title, the url to the story or in this case to the website of this item. There are also information about the user who posted this item (i.e. the `by` field has the username) which you can further query to get information about that user. There is another array of identities in the `kids` field that identify comments of this specific item. You can query these comments and the result itself might have more comments because the comments have a nested structure. The `descendants` field gives you the total number of comments down the entire comment tree.
+As you can see, we get quite a lot of information for this item such as the title, the url to the story or in this case the website of this item. There is also information about the user who posted this item (i.e. the `by` field has the username) which you can further query to get information about that user. There is another array of identities in the `kids` field that identifies comments on this specific item. You can query these comments and the result itself might have more comments because the comments have a nested structure. The `descendants` field gives you the total number of comments down the entire comment tree.
 
 Understanding the API you are working with is crucial before you are able to properly model your application. Head to [Hackernews API documentation](https://github.com/HackerNews/API) to learn more about the API and all the available information that you can query.
 
-For the purposes of our Elmish Hackernews clone we will be restricting ourselves into just getting the information of items and render them as a list with links to the `url` of those items. Building an entire clone that maps to the API is out of scope for this application, though definitely possible using the techniques that we will be applying in the remainder of this chapter.
+For the purposes of our Elmish Hackernews clone we will be restricting ourselves to just getting the information of items and rendering them as a list with links to the `url` of those items. Building an entire clone that maps to the API is out of scope for this application, though definitely possible using the techniques that we will be applying in the remainder of this chapter.
 
 Just like with chapter 2, I have divided the implementation of the Elmish Hackernews application into three parts where we incrementally add more features as we go based on some requirements. The chapter wraps up with exercises where I will ask you to add features to it.
 

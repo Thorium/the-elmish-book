@@ -23,7 +23,7 @@ Consider the package `Fable.Elmish.React`. It is pulled from nuget and has the f
 
 <resolved-image source="/images/elm/elmish-project-structure.png" />
 
-Since `Fable.Elmish` and `Fable.React` are both *transitive* dependencies of `Fable.Elmish.React` these are also pulled in when you reference `Fable.Elmish.React`. However, `Fable.React` is the binding used to interact with React. We need to install React as well from npm, which we already do if you take a look into the `package.json` file:
+Since `Fable.Elmish` and `Fable.React` are both *transitive* dependencies of `Fable.Elmish.React` these are also pulled in when you reference `Fable.Elmish.React`. However, `Fable.React` is the binding used to interact with React. We need to install React as well from npm, which we already do if you take a look at the `package.json` file:
 
 ```json {highlight: [8,9]}
 {

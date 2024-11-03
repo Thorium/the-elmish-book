@@ -22,7 +22,7 @@ However, when Hot Module Replacement is enabled, it is a whole new level of grea
   </div>
 </div>
 
-As you can see, changing certain pieces of the user interface updates automatically while *maintaining the state* without full refresh. This makes prototyping the user interface a real joy and once you get used to it, you never want to go back.
+As you can see, changing certain pieces of the user interface updates automatically while *maintaining the state* without a full refresh. This makes prototyping the user interface a real joy and once you get used to it, you never want to go back.
 
 Now that I have hyped up this feature, let us see how to enable it in our project. Hot Module Replacement is enabled by just adding a webpack plugin. Just like with dotenv files, we will add the plugin to webpack for HMR. However, this time it will be a *development-specific* plugin: only available while developing because we don't want to enable it with our production builds since it adds some extra code to the bundle to communicate with the webpack development server via web sockets.
 

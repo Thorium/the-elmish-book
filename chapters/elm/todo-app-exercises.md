@@ -70,7 +70,7 @@ Notice that this implementation doesn't do or check anything with the state. It 
 
 You can view and use the application [live here](https://zaid-ajaj.github.io/elmish-todo-exercises/).
 
-### Exercise 3: Disable save button when user hasn't changed the text
+### Exercise 3: Disable the save button when the user hasn't changed the text
 
 When in edit mode, the save button (the one with the floppy disk icon) has the class "is-primary" which gives the button the green-blue color. Your task is as follows: change the class "is-primary" to "is-outlined" when the description of `TodoBeingEdited` is equal to that of the To-Do item that is being edited. This tells the user that the save button will have no effect. It looks like this:
 
@@ -111,7 +111,7 @@ module Bulma =
   let [<Literal>] IsPrimary = "is-primary"
   // etc.
 ```
-Although this would work, it requires considerable amount of work to take every class exposed from Bulma and writing in the module, not to mention that you have to maintain the module and update it when Bulma introduces breaking changes. Finally, you would have to follow this process for every CSS framework you want to use. What if there was a tool that does all things for us using a single line of code? Enter [TypedCssClasses](https://github.com/zanaptak/TypedCssClasses) written by [Zanaptak](https://github.com/zanaptak), a type-provider that infers the class names exposed from a stylesheet and makes them available during compile-time!
+Although this would work, it requires a considerable amount of work to take every class exposed from Bulma and writing in the module, not to mention that you have to maintain the module and update it when Bulma introduces breaking changes. Finally, you would have to follow this process for every CSS framework you want to use. What if there was a tool that does all things for us using a single line of code? Enter [TypedCssClasses](https://github.com/zanaptak/TypedCssClasses) written by [Zanaptak](https://github.com/zanaptak), a type-provider that infers the class names exposed from a stylesheet and makes them available during compile-time!
 
 First of all, install the package into the F# project
 ```bash

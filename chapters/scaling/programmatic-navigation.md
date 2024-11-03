@@ -1,8 +1,8 @@
 # Programmatic Navigation
 
-Using anchor tags with `Html.a` elements is not the only way to navigate from one page to another. In fact, most of the times you want to navigate to another page as a result of an *event* using commands. Take the example where you want to navigate from the login page to the home page after a successful login attempt. This type of navigation only kicks into play after a login operation finishes running, rather than an immediate click of a link on the page. The `Feliz.Router` package provides a handy overloaded function called `navigate` from the `Cmd` module which returns a command that programmatically changes the current URL of the page. This in turn causes the `onUrlChanged` event to trigger once more and the rest of the application to react to that change.
+Using anchor tags with `Html.a` elements is not the only way to navigate from one page to another. In fact, most of the time you want to navigate to another page as a result of an *event* using commands. Take the example where you want to navigate from the login page to the home page after a successful login attempt. This type of navigation only kicks into play after a login operation finishes running, rather than an immediate click of a link on the page. The `Feliz.Router` package provides a handy overloaded function called `navigate` from the `Cmd` module which returns a command that programmatically changes the current URL of the page. This in turn causes the `onUrlChanged` event to trigger once more and the rest of the application to react to that change.
 
-Let us take an example by navigating to pages as a result of an event. First of all we will introduce two messages, each of which cause the application to navigate to a different page:
+Let us take an example by navigating to pages as a result of an event. First of all we will introduce two messages, each of which causes the application to navigate to a different page:
 ```fsharp {highlight: [6, 7]}
 type State =
   { CurrentUrl: string list }
@@ -58,7 +58,7 @@ let render (state: State) (dispatch: Msg -> unit) =
   ]
 ```
 
-The result end up like this:
+The result ends up like this:
 
 <div style="margin-top: 40px; margin-bottom:40px; width:100%">
   <div style="margin: 0 auto; width:75%;">
